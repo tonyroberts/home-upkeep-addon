@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+cd /app/backend || exit 1
+export UPKEEP_STORAGE_PATH=/data/storage
+export UPKEEP_LOG_LEVEL=$(jq -r '.log_level // "info"' /data/options.json 2>/dev/null || echo "info")
+UPKEEP_API_PORT=$(jq -r ".port // 8125" /data/options.json 2>/dev/null || echo 8125)
+exec .venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port ${UPKEEP_API_PORT}

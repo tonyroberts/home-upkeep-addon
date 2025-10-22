@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  /* Home Assistant blue-based primary palette */
+  --color-primary-50:  #e6f6ff; /* very light cyan blue */
+  --color-primary-100: #b3e5fc;
+  --color-primary-400: #29b6f6;
+  --color-primary-500: #03a9f4; /* HA accent blue */
+  --color-primary-600: #039be5;
+  --color-primary-700: #0288d1;
+  --color-primary-800: #0277bd;
+  --color-primary-900: #01579b;
+
+  /* Neutral gray palette tuned for HA’s light/dark balance */
+  --color-gray-50:  #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #eeeeee;
+  --color-gray-300: #e0e0e0;
+  --color-gray-400: #bdbdbd;
+  --color-gray-500: #9e9e9e;
+  --color-gray-600: #757575;
+  --color-gray-700: #616161;
+  --color-gray-800: #424242;
+  --color-gray-900: #1c1c1c;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-primary-400;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 dark:bg-gray-900 dark:border-gray-800;
+  }
+
+  .task-item {
+    @apply bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow duration-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg;
+  }
+
+  .list-item {
+    @apply bg-white rounded-lg border border-gray-200 p-3 hover:shadow-sm transition-all duration-200 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700;
+  }
+
+  .list-item-selected {
+    @apply bg-primary-50 border-primary-100 shadow-sm dark:bg-primary-900/20 dark:border-primary-800;
+  }
+
+  .dialog {
+    @apply fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50;
+  }
+
+  .dialog-body {
+    @apply bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-md;
+  }
+
+  .dialog-body-large {
+    @apply bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto;
+  }
+
+  .dialog-content {
+    @apply p-6;
+  }
+
+  .dialog-title {
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4;
+  }
+
+  .dialog-title-large {
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6;
+  }
+
+  .dialog-label {
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block;
+  }
+
+  .dialog-label-inline {
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+
+  .dialog-help-text {
+    @apply text-xs text-gray-500 dark:text-gray-400 mt-1;
+  }
+
+  .dialog-actions {
+    @apply flex gap-3 justify-end mt-6;
+  }
+
+  .dialog-actions-no-margin {
+    @apply flex gap-3 justify-end;
+  }
+
+  .icon-button {
+    @apply text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 p-1 rounded;
+  }
+
+  .icon-button-danger {
+    @apply text-gray-400 hover:text-red-600 dark:text-gray-500 dark:hover:text-red-400 p-1 rounded;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-1 px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200 text-xs font-medium rounded
+  }
+
+  .badge-info {
+    @apply inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 text-xs font-medium rounded;
+  }
+
+  .badge-info button {
+    @apply ml-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200;
+  }
+
+  .checkbox {
+    @apply h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 rounded;
+  }
+
+  .count-due {
+    @apply bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200 text-xs font-medium px-2.5 py-0.5 rounded-full;
+  }
+
+  .count-upcoming {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-full;
+  }
+
+  .count-completed {
+    @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200 text-xs font-medium px-2.5 py-0.5 rounded-full;
+  }
+
+  .section-title {
+    @apply text-xl font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  .empty-state {
+    @apply text-center py-8 text-gray-500 dark:text-gray-400;
+  }
+
+  .empty-state-icon {
+    @apply mx-auto h-12 w-12 text-gray-400 dark:text-gray-500;
+  }
+
+  .empty-state-text {
+    @apply mt-2;
+  }
+
+  .section-header {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .task-list {
+    @apply space-y-3;
+  }
+
+  .badge-orange {
+    @apply bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200 px-2 py-1 rounded;
+  }
+
+  .badge-green {
+    @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200 px-2 py-1 rounded;
+  }
+
+  .form-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+  }
+
+  .form-section {
+    @apply space-y-4;
+  }
+}

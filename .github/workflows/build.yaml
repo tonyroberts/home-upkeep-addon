@@ -1,0 +1,32 @@
+name: "Build"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["aarch64", "amd64"]
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build ${{ matrix.addon }} add-on
+        uses: home-assistant/builder@2025.09.0
+        with:
+          args: |
+            --test \
+            --${{ matrix.arch }} \
+            --target home-upkeep

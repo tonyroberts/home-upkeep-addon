@@ -1,0 +1,23 @@
+name: Home Upkeep
+description: "Track recurring maintenance, cleaning, gardening, and other household chores"
+version: "0.1.0"
+slug: home-upkeep
+image: "ghcr.io/tonyroberts/home-upkeep-addon-{arch}"
+url: "https://github.com/tonyroberts/home-upkeep-addon"
+init: false
+ingress: true
+host_network: false
+panel_icon: "mdi:duck"
+map:
+  - type: data
+    path: /data
+    read_only: false
+arch:
+  - aarch64
+  - amd64
+options:
+  log_level: info
+  port: 8125
+schema:
+  log_level: list(trace|debug|info|notice|warning|error|fatal)
+  port: int

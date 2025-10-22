@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+set -euo pipefail
+
+cd /app/frontend/dist || exit 1
+
+# Read the backend port from /data/options.json
+export UPKEEP_API_PORT=$(jq -r ".port // 8125" /data/options.json 2>/dev/null || echo 8125)
+
+# Render nginx config
+envsubst '${UPKEEP_API_PORT}' < /etc/nginx/http.d/ingress.conf.template > /etc/nginx/http.d/ingress.conf
+
+# Start nginx
+nginx -g "daemon off;error_log /dev/stdout debug;"
