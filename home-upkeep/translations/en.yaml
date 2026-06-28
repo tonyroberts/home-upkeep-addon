@@ -1,0 +1,6 @@
+---
+configuration:
+  panel_admin: 
+    name: Admin Only Panel Access
+    description: >-
+      Requires users to have admin privileges to access the add-on panel.
