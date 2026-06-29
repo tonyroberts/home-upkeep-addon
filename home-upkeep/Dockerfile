@@ -52,7 +52,7 @@ COPY backend/ /app/backend/
 FROM ${BUILD_FROM}
 
 # Install Python runtime dependencies only
-RUN apk add --no-cache python3 py3-pip libffi openssl bash
+RUN apk add --no-cache python3 py3-pip libffi bash
 
 # Install nginx
 RUN apk --no-cache add nginx && mkdir -p /run/nginx
