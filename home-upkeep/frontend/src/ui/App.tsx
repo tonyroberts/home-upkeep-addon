@@ -7,6 +7,7 @@ import { EditListDialog } from './EditListDialog';
 import { EditTaskDialog } from './EditTaskDialog';
 import { CreateListDialog } from './CreateListDialog';
 import { SnoozeDialog } from './SnoozeDialog';
+import { parseDueDate } from '../dates';
 
 function useTasks(selectedListId: number | undefined) {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -192,7 +193,7 @@ export function App() {
     setEditing(task);
     setEditTitle(task.title);
     setEditDescription(task.description ?? '');
-    setEditDueDate(task.due_date ? new Date(task.due_date).toISOString().slice(0, 10) : '');
+    setEditDueDate(task.due_date ? task.due_date.slice(0, 10) : '');
     setEditCompleted(task.completed);
     setEditCompletedAt(task.completed_at ? new Date(task.completed_at).toISOString().slice(0, 16) : '');
     setEditReschedPeriod(task.reschedule_period ?? '');
@@ -354,7 +355,7 @@ export function App() {
               const isDueOrOverdue = (t: Task) => {
                 if (t.completed) return false;
                 if (!t.due_date) return true; // include tasks with no due date
-                const d = new Date(t.due_date);
+                const d = parseDueDate(t.due_date);
                 d.setHours(0, 0, 0, 0);
                 return d.getTime() <= today.getTime();
               };
@@ -366,18 +367,18 @@ export function App() {
               const due = tasks
                 .filter(isDueOrOverdue)
                 .sort((a, b) => {
-                  const ad = a.due_date ? startOfDay(new Date(a.due_date)) : Infinity;
-                  const bd = b.due_date ? startOfDay(new Date(b.due_date)) : Infinity;
+                  const ad = a.due_date ? startOfDay(parseDueDate(a.due_date)) : Infinity;
+                  const bd = b.due_date ? startOfDay(parseDueDate(b.due_date)) : Infinity;
                   if (ad !== bd) return ad - bd; // by due date (day) ascending; no-due last
                   const ac = new Date(a.created_at).getTime();
                   const bc = new Date(b.created_at).getTime();
                   return ac - bc; // tie-break by created time ascending
                 });
               const upcoming = tasks
-                .filter((t) => !t.completed && t.due_date && startOfDay(new Date(t.due_date)) > today.getTime())
+                .filter((t) => !t.completed && t.due_date && startOfDay(parseDueDate(t.due_date)) > today.getTime())
                 .sort((a, b) => {
-                  const ad = startOfDay(new Date(a.due_date!));
-                  const bd = startOfDay(new Date(b.due_date!));
+                  const ad = startOfDay(parseDueDate(a.due_date!));
+                  const bd = startOfDay(parseDueDate(b.due_date!));
                   if (ad !== bd) return ad - bd;
                   const ac = new Date(a.created_at).getTime();
                   const bc = new Date(b.created_at).getTime();

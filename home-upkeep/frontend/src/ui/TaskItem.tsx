@@ -1,5 +1,6 @@
 import React from 'react';
 import { Task } from '../api/client';
+import { parseDueDate } from '../dates';
 import { Icon } from '@mdi/react';
 import { mdiSleep, mdiPencil, mdiTrashCanOutline } from '@mdi/js';
 
@@ -13,7 +14,7 @@ interface TaskItemProps {
 
 export function TaskItem({ task, onToggle, onDelete, onEdit, onSnooze }: TaskItemProps) {
   // Determine if snooze button should be shown (only for due/overdue tasks)
-  const shouldShowSnooze = !task.completed && (!task.due_date || new Date(task.due_date) <= new Date());
+  const shouldShowSnooze = !task.completed && (!task.due_date || parseDueDate(task.due_date) <= new Date());
 
   return (
     <div className="task-item">
@@ -36,7 +37,7 @@ export function TaskItem({ task, onToggle, onDelete, onEdit, onSnooze }: TaskIte
                 <div className="mt-1 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                 {task.due_date && (
                   <span className="badge-orange">
-                    Due {new Date(task.due_date).toLocaleDateString()}
+                    Due {parseDueDate(task.due_date).toLocaleDateString()}
                   </span>
                 )}
                 {task.completed_at && (
@@ -61,11 +62,11 @@ export function TaskItem({ task, onToggle, onDelete, onEdit, onSnooze }: TaskIte
                   // Check if task is due (no due date or due date is today or in the past)
                   const today = new Date();
                   today.setHours(0, 0, 0, 0); // Reset time to start of day for comparison
-                  const isTaskDue = !task.due_date || new Date(task.due_date) <= today;
+                  const isTaskDue = !task.due_date || parseDueDate(task.due_date) <= today;
 
                   // Check if task due date is in the same month and year as today
                   const isDueDateInCurrentMonth = task.due_date && (() => {
-                    const dueDate = new Date(task.due_date);
+                    const dueDate = parseDueDate(task.due_date);
                     const currentDate = new Date();
                     return dueDate.getMonth() === currentDate.getMonth() &&
                            dueDate.getFullYear() === currentDate.getFullYear();
@@ -75,7 +76,7 @@ export function TaskItem({ task, onToggle, onDelete, onEdit, onSnooze }: TaskIte
                   let isDueDateMonthProhibited = false;
                   let dueDateMonthName = '';
                   if (task.due_date) {
-                    const dueDate = new Date(task.due_date);
+                    const dueDate = parseDueDate(task.due_date);
                     const dueDateMonth = dueDate.getMonth() + 1;
                     isDueDateMonthProhibited = task.prohibited_months.includes(dueDateMonth);
                     dueDateMonthName = monthNames[dueDateMonth - 1] || '';
