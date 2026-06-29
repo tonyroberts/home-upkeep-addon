@@ -179,7 +179,7 @@ def _calculate_next_due_date(
 
     return next_due
 
-app = FastAPI(title="Upkeep", version="0.1.0")
+app = FastAPI(title="Upkeep", version="0.1.1")
 
 # Allow frontend dev server by default; adjust as needed
 app.add_middleware(
