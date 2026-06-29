@@ -58,3 +58,6 @@ To use the add-on and custom integration:
    - Add the integration under Settings -> Devices & services
 
 Once set up, your Home Upkeep task lists will be available as `todo` entities in Home Assistant.
+
+## Building
+Build and run both frontend and backend. See the README files in the backend and frontend for instructions on how to do so.
