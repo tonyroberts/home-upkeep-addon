@@ -7,6 +7,7 @@ url: "https://github.com/tonyroberts/home-upkeep-addon"
 init: false
 ingress: true
 host_network: false
+panel_admin: false
 panel_icon: "mdi:duck"
 map:
   - type: data
