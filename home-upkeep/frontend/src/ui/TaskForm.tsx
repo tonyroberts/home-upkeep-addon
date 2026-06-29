@@ -21,7 +21,7 @@ export function TaskForm({ onSubmit, listId, onCancel }: TaskFormProps) {
           list_id: listId,
           title: title.trim(),
           description: description.trim() || undefined,
-          due_date: dueDate ? new Date(dueDate).toISOString() : undefined,
+          due_date: dueDate || undefined,
           reschedule_period: reschedPeriod || undefined,
         };
         if (!data.title) return;

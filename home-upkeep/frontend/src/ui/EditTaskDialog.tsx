@@ -56,7 +56,7 @@ export function EditTaskDialog({
       title: title.trim() || undefined,
       description: description.trim() || undefined,
       completed: completed,
-      due_date: dueDate ? new Date(dueDate).toISOString() : null,
+      due_date: dueDate || null,
       reschedule_period: reschedPeriod || null,
       reschedule_base: reschedBase,
       completed_at: completedAt ? new Date(completedAt).toISOString() : null,
